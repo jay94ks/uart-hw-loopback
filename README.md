@@ -8,6 +8,12 @@ In addition, since the pins of the 'SL2.1A' chip are left,
 so I added the USB hub function to utilize them.
 and 'PD (Power Delivery)' input in case the current is insufficient.
 
+### Hardware:
+![Hardware](https://github.com/jay94ks/uart-hw-loopback/blob/main/hardware/UARTmonitor-SMT.jpg)
+
+### Schematic:
+![Schematic](https://github.com/jay94ks/uart-hw-loopback/blob/main/hardware/UARTmonitor.png)
+
 ## How to connect:
 Note that, currently, 
 firmware for `STM32F042` and `tapping software` are work in progress yet,
