@@ -7,7 +7,6 @@
 
 #include "main.h"
 #include "usbd_cdc_if.h"
-#include "Queue.h"
 
 extern "C" {
 	extern UART_HandleTypeDef huart2;
@@ -22,13 +21,12 @@ extern "C" {
 
 	// --
 	void runApp() {
-		uint8_t temp[32] = { 0, };
+		uint8_t temp[256] = { 0, };
 		uint8_t pos = 0;
 
 		while(true) {
 			if (HAL_UART_Receive(&huart2, temp + pos, 1, 0) == HAL_OK) {
-				if (pos < sizeof(temp)) {
-					pos++;
+				if (++pos < sizeof(temp)) {
 					continue;
 				}
 			}
@@ -39,7 +37,6 @@ extern "C" {
 					continue;
 				}
 
-				pos = 0;
 				break;
 			}
 
