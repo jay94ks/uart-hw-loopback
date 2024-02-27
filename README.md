@@ -15,10 +15,6 @@ and 'PD (Power Delivery)' input in case the current is insufficient.
 ![Schematic](https://github.com/jay94ks/uart-hw-loopback/blob/main/hardware/UARTmonitor.png)
 
 ## How to connect:
-Note that, currently, 
-firmware for `STM32F042` and `tapping software` are work in progress yet,
-these will be available after few days.
-
 ### Requirements:
 1. UART hardware loopback board with `USB Type-C` cable.
 2. Target hardware and software.
@@ -29,3 +25,32 @@ these will be available after few days.
 2. Attach a `COM` port of `F042VCP` to target software.
 3. Then, attach a `COM` port of `CH340` to this tapping software.
 4. And, configure this tapping software to communicate with the target hardware.
+
+## Flashing the firmware:
+This board's `SL2.1A` USB hub chip seems like that disable the SWD pins.
+(This seems to be a problem that occurs when the DP/DM pins wired on the board activate DFU mode or probe-like something)
+So, you can flash the `F042F6P6` chip like:
+
+### Using development board prototype.
+Solder the `F042F6P6` chip to development board or use non-solder programming tools,
+and flash your chip, then re-solder it to this board. 
+
+### `USB DFU` mode.
+Initially, the `F042F6P6` chip will be booted in DFU mode.
+
+1. download `DfuSe` tool from ST microelectronics website:
+    https://www.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/stsw-stm32080.license=1635064983409.product=STSW-STM32080.version=3.0.6.html#get-software
+
+2. install it and goto `[System drive]:\Program Files (x86)\STMicroelectronics\Software\DfuSe v3.0.6\Bin` using explorer.
+
+3. double click `DfuFileMgr.exe`
+4. check first option, `I want to GENERATE a DFU file from S19, HEX or BIN files` then click `next`.
+5. put `DF11` to `Product ID` field.
+6. click `S19 or Hex...` button then, select your built `HEX` file, and click `Generate`.
+7. close `DFU File Manager` tool, and double click `DfuSeDemo.exe` file.
+8. select `STM device in DFU mode` from `Available DFU Devices` combo box.
+9. click `Choose...` button on `Upgrade or Verify Action` panel.
+10. select `DFU` file that generated at 6th process, then click `Upgrade`.
+11. finally, click `Leave DFU mode` on `Available DFU Devices` panel.
+12. unplug your board and re-plug it.
+13. done.
