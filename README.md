@@ -27,13 +27,17 @@ and 'PD (Power Delivery)' input in case the current is insufficient.
 4. And, configure this tapping software to communicate with the target hardware.
 
 ## Flashing the firmware:
-This board's `SL2.1A` USB hub chip seems like that disable the SWD pins.
-(This seems to be a problem that occurs when the DP/DM pins wired on the board activate DFU mode or probe-like something)
+~~This board's `SL2.1A` USB hub chip seems like that disable the SWD pins.
+(This seems to be a problem that occurs when the DP/DM pins wired on the board activate DFU mode or probe-like something)~~
 So, you can flash the `F042F6P6` chip like:
 
+### Set-up pull resistor to `BOOT0`.
+This enables `ST-Link` SWD pins. if `BOOT0` pin is floating, the chip will never enable `DFU` or `SWD` pins.
+* `BOOT0` -> pull down: enables `SWD`.
+* `BOOT0` -> pull up: enables `DFU`.
+
 ### Using development board prototype.
-Solder the `F042F6P6` chip to development board or use non-solder programming tools,
-and flash your chip, then re-solder it to this board. 
+Solder the `F042F6P6` chip to development board or use non-solder programming tools, and flash your chip, then re-solder it to this board. 
 
 ### `USB DFU` mode.
 Initially, the `F042F6P6` chip will be booted in DFU mode.
