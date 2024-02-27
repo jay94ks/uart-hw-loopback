@@ -25,10 +25,12 @@ extern "C" {
 		uint8_t pos = 0;
 
 		while(true) {
-			if (HAL_UART_Receive(&huart2, temp + pos, 1, 0) == HAL_OK) {
-				if (++pos < sizeof(temp)) {
-					continue;
-				}
+			if (HAL_UART_Receive(&huart2, temp + pos, 1, 0) != HAL_OK) {
+				continue;
+			}
+
+			if (++pos < sizeof(temp)) {
+				continue;
 			}
 
 			while(true) {
